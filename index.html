@@ -196,14 +196,14 @@ to{transform:translateY(110vh) rotate(720deg);opacity:0}
 <div class="screen active" id="s1">
 <h1>Welcome Ari 😌</h1>
 <p>Tora made a tiny love game just for you…</p>
-<button class="primary" onclick="next(2)">Start 💖</button>
+<button class="primary" onclick="next(2)">Start ❤️</button>
 </div>
 
 <!-- SCREEN 2 -->
 <div class="screen" id="s2">
-<h1>Catch Tora's Heart 💓</h1>
+<h1>Catch Tora's Heart ❤️</h1>
 <div class="game-area" id="gameArea">
-<div class="heart" id="heart">💖</div>
+<div class="heart" id="heart">❤️</div>
 </div>
 <p id="score">0 / 3 caught</p>
 </div>
@@ -219,7 +219,7 @@ to{transform:translateY(110vh) rotate(720deg);opacity:0}
 <div class="screen" id="s4">
 <h1>Ari… will you be Tora’s Valentine forever? 💌</h1>
 <div style="position:relative;height:130px;width:100%;">
-<button class="primary" onclick="yesLove()">Yes 💖</button>
+<button class="primary" onclick="yesLove()">Yes ❤️</button>
 <button class="ghost" id="noBtn" style="position:absolute;left:60%;">No 🙈</button>
 </div>
 </div>
@@ -231,8 +231,8 @@ to{transform:translateY(110vh) rotate(720deg);opacity:0}
 
 <!-- SCREEN 6 -->
 <div class="screen" id="s6">
-<div class="big-heart">💖</div>
-<div class="love-msg">You made Tora the happiest girl alive 💞</div>
+<div class="big-heart">❤️</div>
+<div class="love-msg">You made Tora the happiest girl alive ❤️</div>
 </div>
 </div>
 
@@ -281,11 +281,11 @@ const winner=Math.floor(Math.random()*6)
 for(let i=0;i<6;i++){
 const d=document.createElement('div')
 d.className='tile'
-d.innerText='💗'
+d.innerText='❤️'
 
 d.onclick=()=>{
 if(i===winner){
-d.innerText='💖'
+d.innerText='❤️'
 setTimeout(()=>next(4),600)
 }else d.innerText='😜'
 }
@@ -327,7 +327,7 @@ again and again.
 Stay with me
 in this quiet, beautiful forever.
 
-— Tora 💖`
+— Tora ❤️`
 
 const el=document.getElementById('letter')
 el.textContent=''
