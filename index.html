@@ -1,266 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ari ❤️ Tora</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Ari ❤️ Tora</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #ffd6e0, #ff9aa2);
-      overflow: hidden;
-      color: #444;
-    }
+html,body{
+height:100%;
+width:100%;
+font-family:'Poppins',sans-serif;
+background:radial-gradient(circle at top,#ffd6e0,#ff9aa2);
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
 
-    .app {
-      width: 360px;
-      height: 640px;
-      background: rgba(255,255,255,0.96);
-      border-radius: 28px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
+/* MOBILE APP CONTAINER */
+.app{
+width:100%;
+height:100%;
+max-width:430px;
+background:rgba(255,255,255,0.97);
+border-radius:28px;
+box-shadow:0 40px 100px rgba(0,0,0,0.35);
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
 
-    .header {
-      background: linear-gradient(135deg, #ff4b6e, #ff758c);
-      color: white;
-      padding: 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 18px;
-    }
+/* HEADER */
+.header{
+background:linear-gradient(135deg,#ff4b6e,#ff758c);
+color:#fff;
+padding:18px;
+text-align:center;
+font-weight:600;
+font-size:18px;
+letter-spacing:.5px;
+}
 
-    .screen {
-      flex: 1;
-      display: none;
-      padding: 24px;
-      text-align: center;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      position: relative;
-    }
+/* SCREENS */
+.screen{
+flex:1;
+display:none;
+padding:28px 22px;
+text-align:center;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+position:relative;
+}
 
-    .screen.active { display: flex; }
+.screen.active{display:flex}
 
-    h1 { color: #ff4b6e; font-size: 24px; margin-bottom: 10px; }
-    p { font-size: 14px; color: #666; margin-bottom: 20px; }
+/* TEXT */
+h1{
+color:#ff4b6e;
+font-size:26px;
+margin-bottom:10px;
+}
 
-    button {
-      border: none;
-      padding: 14px 26px;
-      border-radius: 999px;
-      font-size: 15px;
-      cursor: pointer;
-      font-weight: 600;
-      margin: 6px;
-      transition: 0.25s ease;
-    }
+p{
+font-size:15px;
+color:#666;
+margin-bottom:22px;
+max-width:260px;
+}
 
-    .primary {
-      background: linear-gradient(135deg, #ff4b6e, #ff758c);
-      color: white;
-      box-shadow: 0 10px 25px rgba(255,75,110,0.4);
-    }
+/* BUTTONS */
+button{
+border:none;
+padding:14px 28px;
+border-radius:999px;
+font-size:15px;
+cursor:pointer;
+font-weight:600;
+transition:.25s;
+}
 
-    .ghost { background: #eee; }
+.primary{
+background:linear-gradient(135deg,#ff4b6e,#ff758c);
+color:white;
+box-shadow:0 10px 25px rgba(255,75,110,.4);
+}
 
-    /* Catch heart game */
-    .game-area {
-      width: 100%;
-      height: 220px;
-      position: relative;
-      background: #fff0f4;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
+.primary:active{transform:scale(.96)}
 
-    .heart {
-      position: absolute;
-      font-size: 42px;
-      cursor: pointer;
-      user-select: none;
-    }
+.ghost{
+background:#eee;
+color:#555;
+}
 
-    /* Find Tora game */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
+/* HEART GAME */
+.game-area{
+width:100%;
+height:230px;
+position:relative;
+background:#fff0f4;
+border-radius:22px;
+overflow:hidden;
+margin-bottom:10px;
+}
 
-    .tile {
-      background: #ffe6ec;
-      border-radius: 16px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.heart{
+position:absolute;
+font-size:46px;
+cursor:pointer;
+user-select:none;
+transition:.2s;
+}
 
-    .tile:hover { transform: scale(1.1); }
+/* FIND GAME */
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
 
-    .big-heart { font-size: 70px; animation: pulse 1.5s infinite; }
+.tile{
+background:#ffe6ec;
+border-radius:16px;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+transition:.2s;
+}
 
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.25); }
-    }
+.tile:active{transform:scale(.9)}
 
-    .love-msg { font-size: 22px; color: #ff4b6e; font-weight: 600; margin-top: 10px; }
+/* LOVE LETTER */
+.letter{
+white-space:pre-line;
+font-size:17px;
+color:#555;
+max-width:280px;
+line-height:1.7;
+border-right:2px solid #ff4b6e;
+animation:blink 1s infinite;
+}
 
-    .letter {
-      white-space: pre-line;
-      font-size: 16px;
-      color: #555;
-      max-width: 260px;
-      line-height: 1.6;
-      border-right: 2px solid #ff4b6e;
-      animation: blink 1s infinite;
-    }
+@keyframes blink{
+0%,100%{border-color:transparent}
+50%{border-color:#ff4b6e}
+}
 
-    @keyframes blink {
-      0%,100% { border-color: transparent; }
-      50% { border-color: #ff4b6e; }
-    }
-  </style>
+/* FINAL */
+.big-heart{
+font-size:78px;
+animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.25)}
+}
+
+.love-msg{
+font-size:22px;
+color:#ff4b6e;
+font-weight:600;
+margin-top:14px;
+}
+
+/* CONFETTI */
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+background:red;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+</style>
 </head>
+
 <body>
 
 <div class="app">
-  <div class="header">Ari ❤️ Tora</div>
+<div class="header">Ari ❤️ Tora</div>
 
-  <!-- Screen 1 -->
-  <div class="screen active" id="s1">
-    <h1>Welcome Ari 😌</h1>
-    <p>Tora made a tiny love game just for you…</p>
-    <button class="primary" onclick="next(2)">Start 💖</button>
-  </div>
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
+<h1>Welcome Ari 😌</h1>
+<p>Tora made a tiny love game just for you…</p>
+<button class="primary" onclick="next(2)">Start 💖</button>
+</div>
 
-  <!-- Screen 2: Catch heart -->
-  <div class="screen" id="s2">
-    <h1>Catch Tora's Heart 💓</h1>
-    <div class="game-area" id="gameArea">
-      <div class="heart" id="heart">💖</div>
-    </div>
-    <p id="score">0 / 3 caught</p>
-  </div>
+<!-- SCREEN 2 -->
+<div class="screen" id="s2">
+<h1>Catch Tora's Heart 💓</h1>
+<div class="game-area" id="gameArea">
+<div class="heart" id="heart">💖</div>
+</div>
+<p id="score">0 / 3 caught</p>
+</div>
 
-  <!-- Screen 3: Find Tora -->
-  <div class="screen" id="s3">
-    <h1>Find Tora 😆</h1>
-    <p>One of these hearts hides Tora</p>
-    <div class="grid" id="grid"></div>
-  </div>
+<!-- SCREEN 3 -->
+<div class="screen" id="s3">
+<h1>Find Tora 😆</h1>
+<p>One of these hearts hides Tora</p>
+<div class="grid" id="grid"></div>
+</div>
 
-  <!-- Screen 4: Question -->
-  <div class="screen" id="s4">
-    <h1>Ari… will you be Tora’s Valentine forever? 💌</h1>
-    <div style="position:relative;height:120px;width:100%;">
-      <button class="primary" onclick="yesLove()">Yes 💖</button>
-      <button class="ghost" id="noBtn" style="position:absolute;left:60%;">No 🙈</button>
-    </div>
-  </div>
+<!-- SCREEN 4 -->
+<div class="screen" id="s4">
+<h1>Ari… will you be Tora’s Valentine forever? 💌</h1>
+<div style="position:relative;height:130px;width:100%;">
+<button class="primary" onclick="yesLove()">Yes 💖</button>
+<button class="ghost" id="noBtn" style="position:absolute;left:60%;">No 🙈</button>
+</div>
+</div>
 
-  <!-- Screen 5: Love letter -->
-  <div class="screen" id="s5">
-    <div class="letter" id="letter"></div>
-  </div>
+<!-- SCREEN 5 -->
+<div class="screen" id="s5">
+<div class="letter" id="letter"></div>
+</div>
 
-  <!-- Screen 6: Final -->
-  <div class="screen" id="s6">
-    <div class="big-heart">💖</div>
-    <div class="love-msg">You made Tora the happiest girl alive 😭💞</div>
-  </div>
+<!-- SCREEN 6 -->
+<div class="screen" id="s6">
+<div class="big-heart">💖</div>
+<div class="love-msg">You made Tora the happiest girl alive 😭💞</div>
+</div>
 </div>
 
 <audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9c9c0f1c6d.mp3" type="audio/mpeg">
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9c9c0f1c6d.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-let score = 0;
-const heart = document.getElementById('heart');
-const gameArea = document.getElementById('gameArea');
+let score=0
+const heart=document.getElementById('heart')
+const gameArea=document.getElementById('gameArea')
 
-function next(n) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('s' + n).classList.add('active');
+function next(n){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'))
+document.getElementById('s'+n).classList.add('active')
 
-  if (n === 2) {
-    document.getElementById('bgm').play();
-    moveHeart();
-  }
-
-  if (n === 3) buildGrid();
-  if (n === 5) typeLetter();
+if(n===2){
+document.getElementById('bgm').play().catch(()=>{})
+moveHeart()
 }
 
-function moveHeart() {
-  const x = Math.random() * (gameArea.clientWidth - 40);
-  const y = Math.random() * (gameArea.clientHeight - 40);
-  heart.style.left = x + 'px';
-  heart.style.top = y + 'px';
+if(n===3) buildGrid()
+if(n===5) typeLetter()
+if(n===6) confettiBurst()
 }
 
-heart?.addEventListener('click', () => {
-  score++;
-  document.getElementById('score').innerText = `${score} / 3 caught`;
-  if (score >= 3) setTimeout(() => next(3), 500);
-  else moveHeart();
-});
-
-function buildGrid() {
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  const winner = Math.floor(Math.random() * 6);
-
-  for (let i = 0; i < 6; i++) {
-    const d = document.createElement('div');
-    d.className = 'tile';
-    d.innerText = '💗';
-
-    d.onclick = () => {
-      if (i === winner) {
-        d.innerText = '💖';
-        setTimeout(() => next(4), 600);
-      } else {
-        d.innerText = '😜';
-      }
-    };
-
-    grid.appendChild(d);
-  }
+function moveHeart(){
+const x=Math.random()*(gameArea.clientWidth-50)
+const y=Math.random()*(gameArea.clientHeight-50)
+heart.style.left=x+'px'
+heart.style.top=y+'px'
 }
 
-const noBtn = document.getElementById('noBtn');
-noBtn?.addEventListener('mouseenter', () => {
-  const x = Math.random() * 150 - 75;
-  const y = Math.random() * 80 - 40;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
-});
+heart?.addEventListener('click',()=>{
+score++
+document.getElementById('score').innerText=`${score} / 3 caught`
+if(score>=3)setTimeout(()=>next(3),500)
+else moveHeart()
+})
 
-function yesLove() { next(5); }
+function buildGrid(){
+const grid=document.getElementById('grid')
+grid.innerHTML=''
+const winner=Math.floor(Math.random()*6)
 
-function typeLetter() {
-  const text = `Ari…
+for(let i=0;i<6;i++){
+const d=document.createElement('div')
+d.className='tile'
+d.innerText='💗'
+
+d.onclick=()=>{
+if(i===winner){
+d.innerText='💖'
+setTimeout(()=>next(4),600)
+}else d.innerText='😜'
+}
+grid.appendChild(d)
+}
+}
+
+/* RUNNING NO BUTTON (mobile + desktop) */
+const noBtn=document.getElementById('noBtn')
+
+function escapeNo(){
+const x=Math.random()*(window.innerWidth-120)
+const y=Math.random()*(window.innerHeight-120)
+noBtn.style.position='fixed'
+noBtn.style.left=x+'px'
+noBtn.style.top=y+'px'
+}
+
+noBtn?.addEventListener('mouseenter',escapeNo)
+noBtn?.addEventListener('touchstart',escapeNo)
+
+function yesLove(){next(5)}
+
+function typeLetter(){
+const text=`Ari…
 
 From the smallest smile
 to the biggest dream…
@@ -271,22 +321,34 @@ because you are in it.
 So today I ask only one thing…
 Stay with me in this little forever.
 
-— Tora 💖`;;
+— Tora 💖`
 
-  const el = document.getElementById('letter');
-  el.innerText = '';
+const el=document.getElementById('letter')
+el.textContent=''
+let i=0
 
-  let i = 0;
-  const interval = setInterval(() => {
-    const ch = text[i];
-    // Use non‑breaking space so spacing never collapses during the typing animation
-    el.textContent += (ch === ' ' ? ' ' : ch);
-    i++;
-    if (i >= text.length) {
-      clearInterval(interval);
-      setTimeout(() => next(6), 1200);
-    }
-  }, 40);
+const interval=setInterval(()=>{
+const ch=text[i]
+el.textContent+=(ch===' ' ? '\u00A0' : ch)
+i++
+if(i>=text.length){
+clearInterval(interval)
+setTimeout(()=>next(6),1500)
+}
+},40)
+}
+
+/* CONFETTI */
+function confettiBurst(){
+for(let i=0;i<80;i++){
+const c=document.createElement('div')
+c.className='confetti'
+c.style.left=Math.random()*100+'vw'
+c.style.background=`hsl(${Math.random()*360},100%,70%)`
+c.style.animationDelay=Math.random()*1.5+'s'
+document.body.appendChild(c)
+setTimeout(()=>c.remove(),3000)
+}
 }
 </script>
 
