@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ari ❤️ Tora</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffd6e0, #ff9aa2);
+      overflow: hidden;
+      color: #444;
+    }
+
+    .app {
+      width: 360px;
+      height: 640px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff4b6e, #ff758c);
+      color: white;
+      padding: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .screen {
+      flex: 1;
+      display: none;
+      padding: 24px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .screen.active { display: flex; }
+
+    h1 { color: #ff4b6e; font-size: 24px; margin-bottom: 10px; }
+    p { font-size: 14px; color: #666; margin-bottom: 20px; }
+
+    button {
+      border: none;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 6px;
+      transition: 0.25s ease;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #ff4b6e, #ff758c);
+      color: white;
+      box-shadow: 0 10px 25px rgba(255,75,110,0.4);
+    }
+
+    .ghost { background: #eee; }
+
+    /* Catch heart game */
+    .game-area {
+      width: 100%;
+      height: 220px;
+      position: relative;
+      background: #fff0f4;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 42px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Find Tora game */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .tile {
+      background: #ffe6ec;
+      border-radius: 16px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tile:hover { transform: scale(1.1); }
+
+    .big-heart { font-size: 70px; animation: pulse 1.5s infinite; }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    .love-msg { font-size: 22px; color: #ff4b6e; font-weight: 600; margin-top: 10px; }
+
+    .letter {
+      white-space: pre-line;
+      font-size: 16px;
+      color: #555;
+      max-width: 260px;
+      line-height: 1.6;
+      border-right: 2px solid #ff4b6e;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { border-color: transparent; }
+      50% { border-color: #ff4b6e; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">Ari ❤️ Tora</div>
+
+  <!-- Screen 1 -->
+  <div class="screen active" id="s1">
+    <h1>Welcome Ari 😌</h1>
+    <p>Tora made a tiny love game just for you…</p>
+    <button class="primary" onclick="next(2)">Start 💖</button>
+  </div>
+
+  <!-- Screen 2: Catch heart -->
+  <div class="screen" id="s2">
+    <h1>Catch Tora's Heart 💓</h1>
+    <div class="game-area" id="gameArea">
+      <div class="heart" id="heart">💖</div>
+    </div>
+    <p id="score">0 / 3 caught</p>
+  </div>
+
+  <!-- Screen 3: Find Tora -->
+  <div class="screen" id="s3">
+    <h1>Find Tora 😆</h1>
+    <p>One of these hearts hides Tora</p>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- Screen 4: Question -->
+  <div class="screen" id="s4">
+    <h1>Ari… will you be Tora’s Valentine forever? 💌</h1>
+    <div style="position:relative;height:120px;width:100%;">
+      <button class="primary" onclick="yesLove()">Yes 💖</button>
+      <button class="ghost" id="noBtn" style="position:absolute;left:60%;">No 🙈</button>
+    </div>
+  </div>
+
+  <!-- Screen 5: Love letter -->
+  <div class="screen" id="s5">
+    <div class="letter" id="letter"></div>
+  </div>
+
+  <!-- Screen 6: Final -->
+  <div class="screen" id="s6">
+    <div class="big-heart">💖</div>
+    <div class="love-msg">You made Tora the happiest girl alive 😭💞</div>
+  </div>
+</div>
+
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9c9c0f1c6d.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let score = 0;
+const heart = document.getElementById('heart');
+const gameArea = document.getElementById('gameArea');
+
+function next(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + n).classList.add('active');
+
+  if (n === 2) {
+    document.getElementById('bgm').play();
+    moveHeart();
+  }
+
+  if (n === 3) buildGrid();
+  if (n === 5) typeLetter();
+}
+
+function moveHeart() {
+  const x = Math.random() * (gameArea.clientWidth - 40);
+  const y = Math.random() * (gameArea.clientHeight - 40);
+  heart.style.left = x + 'px';
+  heart.style.top = y + 'px';
+}
+
+heart?.addEventListener('click', () => {
+  score++;
+  document.getElementById('score').innerText = `${score} / 3 caught`;
+  if (score >= 3) setTimeout(() => next(3), 500);
+  else moveHeart();
+});
+
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  const winner = Math.floor(Math.random() * 6);
+
+  for (let i = 0; i < 6; i++) {
+    const d = document.createElement('div');
+    d.className = 'tile';
+    d.innerText = '💗';
+
+    d.onclick = () => {
+      if (i === winner) {
+        d.innerText = '💖';
+        setTimeout(() => next(4), 600);
+      } else {
+        d.innerText = '😜';
+      }
+    };
+
+    grid.appendChild(d);
+  }
+}
+
+const noBtn = document.getElementById('noBtn');
+noBtn?.addEventListener('mouseenter', () => {
+  const x = Math.random() * 150 - 75;
+  const y = Math.random() * 80 - 40;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+function yesLove() { next(5); }
+
+function typeLetter() {
+  const text = `Ari…
+
+From the smallest smile
+to the biggest dream…
+
+Life feels softer, warmer, brighter
+because you are in it.
+
+So today I ask only one thing…
+Stay with me in this little forever.
+
+— Tora 💖`;;
+
+  const el = document.getElementById('letter');
+  el.innerText = '';
+
+  let i = 0;
+  const interval = setInterval(() => {
+    const ch = text[i];
+    // Use non‑breaking space so spacing never collapses during the typing animation
+    el.textContent += (ch === ' ' ? ' ' : ch);
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      setTimeout(() => next(6), 1200);
+    }
+  }, 40);
+}
+</script>
+
+</body>
+</html>
